@@ -15,7 +15,7 @@ RUN a2enmod rewrite
 
 WORKDIR /var/www/html
 
-RUN sed -i 's|/var/www/html|/var/www/html/backend/public|g' /etc/apache2/sites-available/000-default.conf
+RUN sed -i 's|/var/www/html|/var/www/html/backend/laravel/public|g' /etc/apache2/sites-available/000-default.conf
 
 RUN chown -R www-data:www-data /var/www/html
 
