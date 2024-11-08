@@ -1,11 +1,23 @@
 <template>
-    <div class="container mt-5">
-      <h1>Bem-vindo ao Sistema!</h1>
-      <p>Você está logado.</p>
+  <div class="container-fluid">
+    <div class="row">
+      <Sidebar class="col-md-2" />
+      <MainContent />
     </div>
-  </template>
-  
-  <script>
-  export default {};
-  </script>
-  
+  </div>
+</template>
+
+<script>
+import Sidebar from './SideBar.vue';
+import MainContent from './DashboardRoute.vue';
+
+export default {
+  components: {
+    Sidebar,
+    MainContent,
+  },
+};
+</script>
+
+<style>
+</style>
