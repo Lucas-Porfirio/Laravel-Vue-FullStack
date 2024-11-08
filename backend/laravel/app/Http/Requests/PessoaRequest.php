@@ -36,17 +36,17 @@ class PessoaRequest extends FormRequest
             case 'update':
                 return [
                     'nome' => 'sometimes|string|max:255',
-                    'cpf' => ['sometimes', 'string', 'unique:pessoa,cpf,' . $this->route('pessoa')->id, $validaTipo],
+                    'cpf' => ['sometimes', 'string', 'cpf_ou_cnpj', 'unique:pessoa,cpf,' . $this->route('pessoa')->id, $validaTipo],
                     'tipo' => ['sometimes', Rule::in(PessoaTipoEnum::getValues())],
-                    'telefone' => 'nullable|string|max:15',
+                    'telefone' => 'nullable|string|max:15|celular_com_ddd',
                     'email' => 'nullable|email|unique:pessoa,email,' . $this->route('pessoa')->id,
                 ];
             default:
                 return [
                     'nome' => 'required|string|max:255',
-                    'cpf' => ['sometimes', 'string', 'unique:pessoa,cpf', $validaTipo],
+                    'cpf' => ['required', 'string', 'cpf_ou_cnpj', 'unique:pessoa,cpf', $validaTipo],
                     'tipo' => ['required', Rule::in(PessoaTipoEnum::getValues())],
-                    'telefone' => 'nullable|string|max:15',
+                    'telefone' => 'nullable|string|max:15|celular_com_ddd',
                     'email' => 'nullable|email|unique:pessoa,email',
                 ];
         }
