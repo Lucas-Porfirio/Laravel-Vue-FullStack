@@ -96,24 +96,34 @@ export default {
     },
     methods: {
         async handleSubmit() {
-            try {
-                let response;
+            const param = this.getParamsRequest();
+            const request = this.formData.id
+                ? this.$axios.put(`/pessoa/${this.formData.id}`, param)
+                : this.$axios.post("/pessoa", param);
 
-                if (this.formData.id) {
-                    response = await this.$axios.put(
-                        `/pessoa/${this.formData.id}`,
-                        this.formData
-                    );
-                } else {
-                    response = await this.$axios.post("/pessoa", this.formData);
-                }
-                this.$emit("submit", response.data);
-                this.$emit("close");
-            } catch (error) {
-                alert(
-                    "Erro ao salvar os dados: " + error?.response?.data?.message
+            await request
+                .then(() => this.$emit("success"))
+                .catch((error) =>
+                    alert(
+                        "Erro ao salvar os dados: " +
+                            error?.response?.data?.message
+                    )
                 );
+        },
+        getTipo() {
+            switch (this.formData.cpf.length) {
+                case 14:
+                    return 1;
+                case 18:
+                    return 2;
             }
+        },
+        getParamsRequest() {
+            return {
+                ...this.formData,
+                tipo: this.getTipo(),
+                cpf: this.formData.cpf.replace(/\D/g, ""),
+            };
         },
     },
 };

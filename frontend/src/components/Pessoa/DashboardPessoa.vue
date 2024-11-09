@@ -49,7 +49,7 @@
         </table>
 
         <ModalForm v-if="isModalOpen" :title="modalTitle" @close="closeModal">
-            <FormPessoa :person="selectedPerson" :isViewMode="isViewMode" />
+            <FormPessoa :person="selectedPerson" :isViewMode="isViewMode" @success="closeModal" />
         </ModalForm>
     </div>
 </template>
@@ -111,6 +111,7 @@ export default {
         },
         closeModal() {
             this.isModalOpen = false;
+            this.fetchPeople();
         },
         deletePerson(person) {
             if (confirm(`Tem certeza que deseja excluir ${person.nome}?`)) {
